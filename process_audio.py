@@ -2,7 +2,7 @@ import boto3
 import os
 import time
 import json
-import urllib.request
+import requests
 
 bucket_name = os.environ['S3_BUCKET']
 region = os.environ['AWS_REGION']
@@ -66,8 +66,8 @@ def wait_for_transcription(job_name):
     return status_response
 
 def get_transcript_text(transcript_uri):
-    transcript_json = urllib.request.urlopen(transcript_uri).read()
-    transcript_data = json.loads(transcript_json)
+    response = requests.get(transcript_uri)
+    transcript_data = response.json()
     transcript_text = transcript_data['results']['transcripts'][0]['transcript']
     return transcript_text
 
