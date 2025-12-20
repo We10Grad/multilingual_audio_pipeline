@@ -27,7 +27,7 @@ def transcribe_audio(job_name, media_uri, media_format='mp3', language_code='en-
     )
     return response
 
-def translate_text(text, source_lang='en', target_lang='de'):
+def translate_text(text, source_lang='en', target_lang='es'):
     response = translate.translate_text(
         Text=text,
         SourceLanguageCode=source_lang,
@@ -125,9 +125,8 @@ def main():
         translation_s3_key = f'{prefix}/translations/{translation_filename}'
         upload_to_s3(bucket_name, translation_filename, translation_s3_key)
         print(f'Uploaded translation to S3: {translation_s3_key}')
-        
-        audio_data = synthesize_speech(translated_text, 'mp3', 'Hans')
-        
+
+        audio_data = synthesize_speech(translated_text, 'mp3', 'Miguel')
         output_audio_filename = f'{base_name}_{target_language}.mp3'
         save_audio_file(output_audio_filename, audio_data)
         output_audio_s3_key = f'{prefix}/audio_outputs/{output_audio_filename}'
