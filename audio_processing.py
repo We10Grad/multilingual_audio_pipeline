@@ -37,9 +37,10 @@ def upload_file(file_name, bucket, object_name=None):
         return False
     return True
 
-
-response = transcribe.start_transcription_job(
-    TranscriptionJobName='string',
-    LanguageCode='en-US',
-    MediaFormat='mp3'
-    Media=('MediaFileUri': 'string'),
+def transcribe_audio(job_name, media_uri, media_format='mp3', language_code='en-US'):
+    response = transcribe.start_transcription_job(
+        TranscriptionJobName=job_name,
+        LanguageCode=language_code,
+        MediaFormat=media_format,
+        Media={'MediaFileUri': media_uri}
+    )
